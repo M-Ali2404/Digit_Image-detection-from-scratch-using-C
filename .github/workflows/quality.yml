@@ -15,8 +15,8 @@ jobs:
           pip install lizard
 
       - name: clang-format (style) [non-blocking]
-      continue-on-error: true
-      run: clang-format --dry-run $(find . -name "*.c" -o -name "*.h")
+        continue-on-error: true
+        run: clang-format --dry-run $(find . -name "*.c" -o -name "*.h")
 
       - name: clang-tidy (design & correctness)
         run: clang-tidy $(find . -name "*.c") -- -std=c11

@@ -1,0 +1,27 @@
+name: C Code Critic
+
+on: [push, pull_request]
+
+jobs:
+  critique:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install analysis tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-tidy clang-format cppcheck
+          pip install lizard
+
+      - name: clang-format (style)
+        run: clang-format --dry-run --Werror $(find . -name "*.c" -o -name "*.h")
+
+      - name: clang-tidy (design & correctness)
+        run: clang-tidy $(find . -name "*.c") -- -std=c11
+
+      - name: cppcheck (bugs)
+        run: cppcheck --enable=all --error-exitcode=1 .
+
+      - name: lizard (complexity)
+        run: lizard -C 10 .

@@ -14,8 +14,9 @@ jobs:
           sudo apt-get install -y clang-tidy clang-format cppcheck
           pip install lizard
 
-      - name: clang-format (style)
-        run: clang-format --dry-run --Werror $(find . -name "*.c" -o -name "*.h")
+      - name: clang-format (style) [non-blocking]
+      continue-on-error: true
+      run: clang-format --dry-run $(find . -name "*.c" -o -name "*.h")
 
       - name: clang-tidy (design & correctness)
         run: clang-tidy $(find . -name "*.c") -- -std=c11

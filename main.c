@@ -50,40 +50,33 @@ struct matrix* matrix_multiplication(struct matrix*m, struct matrix*n){ // Matri
     return result;
 }
 
-void matrix_relu(struct matrix*m){
-    for(int i = 0;i<m->row;i++){
-        for(int j= 0;j<m->column;j++){ //row major
-            int index = (i * m->column) + j;
-        if (m->data[index] < 0){
-            m->data[index] = 0;
-        }
-    }
+float square(float x){
+    float output = x * x;
+        return output;
 }
-void matrix_sigmoid(struct matrix*m){
-    for(int i = 0;i<m->row;i++){
-        for(int j= 0;j<m->column;j++){ //row major
-            int index = (i * m->column) + j;
-            if (m->data[index] < 0){
-            m->data[index] = 0;
-        }
-             m->data[index] = 1/(1 + exp(x*-1))
-        }
-    }
+
+float error_functions(float guess, float target){
+    float diff = (target - guess)*(target - guess);
+    return diff;
 }
-void matrix_squared(struct matrix*m){
-    for(int i = 0;i<m->row;i++){
-        for(int j= 0;j<m->column;j++){ //row major
-            int index = (i * m->column) + j;
-            m->data[index] = m->[data]*m->[data];
-    }
+float ReLu(float x){
+    if (x < 0) {
+        x = 0.0;
+    } 
+    return x;
 }
 void matrix_errorfunction(struct matrix*m, int target){ // will not be used yet
     for(int i = 0;i<m->row;i++){
         for(int j= 0;j<m->column;j++){ //row major
             int index = (i * m->column) + j;
         float output = (m->data[index] - output)*(m->data[index] - output);
+        }
     }
 }
+void matrix_apply(struct matrix*m, float (*func)(float)){ 
+    for(int i = 0;i<m->row;i++){
+         m->data[i] = func(m->data[i]);
+    }
 }
 int main() {
     
@@ -115,7 +108,7 @@ int main() {
     matrix_print(m);
 
     matrix_add(m,m);
-    matrix_relu(m);
+    matrix_apply(m,ReLu);
     printf("\n");
     matrix_print(m);
     

@@ -3,11 +3,28 @@
 #include "matrix.h"
 #include <math.h>
 
-// Sigmoid activation function to squeeze numbers between 0 and 1
+float cost_binary_cross_entropy();   //  <----- Implement this soon
 
-float sigmoid_activation(float x);
-float square(float x);
-float error_functions(float x, float target);
-float ReLu(float x);
+float activation_sigmoid(float x); // Sigmoid activation function to squeeze numbers between 0 and 1
+float loss_square(float x); // squares the value resulting in a positive value
+float activation_error_functions(float x, float target); //produces and error function
+float activation_ReLu(float x); // if x is below 0, it becomes 0
+float activation_leaky_ReLu(float x);
+
+typedef struct {
+    struct matrix* weights; 
+    struct matrix* bias;
+} dense; 
+
+typedef struct {
+    int inputsize;
+    int outputsize;
+    struct matrix *input;
+    struct matrix *output;
+    void* param; 
+} layer;
+
+layer* nn_layer_dense_init(int input, int output);
+struct matrix* nn_forward_press(struct matrix *input, layer *l, float (*func)(float));
 
 #endif

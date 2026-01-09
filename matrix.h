@@ -17,4 +17,5 @@ int matrix_add(struct matrix* m, struct matrix* n);
 struct matrix* matrix_multiplication(struct matrix* m, struct matrix* n);
 struct matrix* matrix_dot(struct matrix* m, struct matrix* n, struct matrix* res);
 void matrix_apply(struct matrix* m, float (*func)(float));
+
 #endif

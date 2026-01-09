@@ -56,3 +56,5 @@ dkms.conf
 dataset/
 digit_nn
 .DS_Store
+
+.github/

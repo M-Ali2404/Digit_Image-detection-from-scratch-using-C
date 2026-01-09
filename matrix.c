@@ -29,12 +29,11 @@ void matrix_print(struct matrix*m){  // Prints out the matrix
     for(int i = 0;i<m->row;i++){
         for(int j= 0;j<m->column;j++){ //row major
             int index = (i * m->column) + j;
-            printf("%.2f ", m->data[index]);
+            printf("%.4f ", m->data[index]);
         }
         printf("\n");
     }
 }
-
 int matrix_add(struct matrix*m, struct matrix*n){ // This is for adding matrixes 
     if(m->column != n->column || m->row != n->row){ // Matrix must be the same row and columns to add
         printf("%s","unfit");
@@ -58,7 +57,7 @@ struct matrix* matrix_multiplication(struct matrix*m, struct matrix*n){ // Matri
             for (int k = 0; k < m->column; k++) {
                 sum += m->data[i * m->column + k] * n->data[k * n->column + j];
             }
-            result->data[i * result->column + j] = sum;
+            result->data[i * result->column + j] = sum; 
         }
     }
     return result;
@@ -74,7 +73,7 @@ struct matrix* matrix_dot(struct matrix *m, struct matrix *n, struct matrix *res
             for (int k = 0; k < m->column; k++) {
                 sum += m->data[i * m->column + k] * n->data[k * n->column + j];
             }
-            res->data[i * res->column + j] = sum;
+            sum = res->data[i * res->column + j];
         }
         
     }
